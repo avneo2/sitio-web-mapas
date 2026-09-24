@@ -57,11 +57,11 @@
 
   <hr>
 
-  <!-- ETAPA 1: MAPA CON IFRAME -->
+  <!-- ETAPA 1: MAPA CON IFRAME (UPVM - DIVISIÓN DE INGENIERÍA EN TI) -->
   <section>
     <h2>Ubicación - Cómo llegar (Iframe)</h2>
     <iframe 
-      src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3759.789182379105!2d-99.19538862413552!3d19.604179934891158!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x85d1f7d549c4f19b%3A0xa19692482e994998!2sUniversidad%20Polit%C3%A9cnica%20del%20Valle%20de%20M%C3%A9xico!5e0!3m2!1ses-419!2smx!4v1700000000000!5m2!1ses-419!2smx" 
+      src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3759.043681404179!2d-99.12973868509102!3d19.64214978676572!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x85d1f471e95e8657%3A0xbce5c7924e65ecaa!2sDivisi%C3%B3n%20de%20Ingenieria%20en%20Tecnologias%20de%20la%20Informaci%C3%B3n!5e0!3m2!1ses-419!2smx!4v1710000000000!5m2!1ses-419!2smx" 
       allowfullscreen="" 
       loading="lazy" 
       referrerpolicy="no-referrer-when-downgrade">
@@ -79,40 +79,40 @@
 
   <script>
     function initMap() {
-      // Coordenadas exactas de la Universidad Politécnica del Valle de México
-      const ubicacionUPVM = { lat: 19.60418, lng: -99.19539 };
+      // Coordenadas exactas de la División de TI en la UPVM
+      const ubicacionUPVM = { lat: 19.64215, lng: -99.12755 };
 
       const mapa = new google.maps.Map(document.getElementById("mapa"), {
-        zoom: 16,
+        zoom: 17,
         center: ubicacionUPVM,
       });
 
-      // Marcador arrastrable (draggable: true)
+      // Marcador arrastrable posicionado en la facultad
       const marcador = new google.maps.Marker({
         position: ubicacionUPVM,
         map: mapa,
         draggable: true,
-        title: "Universidad Politécnica del Valle de México (Arrastra o haz clic)",
+        title: "División de Ingeniería en Tecnologías de la Información - UPVM",
         animation: google.maps.Animation.DROP
       });
 
-      // Ventana de información al hacer clic sobre el marcador
+      // Ventana de información interactiva
       const infoWindow = new google.maps.InfoWindow({
-        content: "<strong>UPVM</strong><br>Marcador interactivo activo."
+        content: "<strong>UPVM</strong><br>División de Tecnologías de la Información e Innovación Digital."
       });
 
       marcador.addListener("click", () => {
         infoWindow.open(mapa, marcador);
       });
 
-      // Evento: Al hacer clic en cualquier parte del mapa, el marcador se mueve a esa posición
+      // Permite reubicar el marcador con un clic en el mapa
       mapa.addListener("click", (evento) => {
         marcador.setPosition(evento.latLng);
       });
     }
   </script>
 
-  <!-- SCRIPT OFICIAL CON TU CLAVE DE API -->
+  <!-- LLAMADA A LA API CON TU CLAVE REAL RESTRINGIDA -->
   <script 
     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDlUO8ImsAqnTI0Yi2e2L6Dx0kF19-jdMY&callback=initMap" 
     async 
