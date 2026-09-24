@@ -5,18 +5,52 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Mi Proyecto Web - Google Maps</title>
   <style>
-    body { font-family: Arial, sans-serif; max-width: 800px; margin: 20px auto; padding: 0 15px; line-height: 1.6; }
-    .perfil { text-align: center; margin-bottom: 30px; }
-    .perfil img { width: 150px; height: 150px; border-radius: 50%; object-fit: cover; border: 3px solid #333; }
-    .mapa-contenedor { height: 450px; width: 100%; margin-top: 10px; border: 1px solid #ccc; }
-    iframe { width: 100%; height: 450px; border: 0; }
+    body { 
+      font-family: Arial, sans-serif; 
+      max-width: 800px; 
+      margin: 20px auto; 
+      padding: 0 15px; 
+      line-height: 1.6; 
+      color: #333;
+    }
+    .perfil { 
+      text-align: center; 
+      margin-bottom: 30px; 
+    }
+    .perfil img { 
+      width: 140px; 
+      height: 140px; 
+      border-radius: 50%; 
+      object-fit: cover; 
+      border: 3px solid #0055aa; 
+      box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+    }
+    .instruccion-mapa {
+      font-size: 0.9em;
+      color: #666;
+      margin-top: -5px;
+      margin-bottom: 10px;
+    }
+    .mapa-contenedor { 
+      height: 450px; 
+      width: 100%; 
+      margin-top: 10px; 
+      border: 1px solid #ccc; 
+      border-radius: 8px;
+    }
+    iframe { 
+      width: 100%; 
+      height: 450px; 
+      border: 0; 
+      border-radius: 8px;
+    }
   </style>
 </head>
 <body>
 
   <!-- DATOS PERSONALES -->
   <section class="perfil">
-    <img src="https://via.placeholder.com/150" alt="Fotografía">
+    <img src="https://ui-avatars.com/api/?name=Alejandro+Velazquez&size=150&background=0055aa&color=fff&bold=true" alt="Fotografía de Alejandro Velázquez">
     <h1>Alejandro Velázquez Hernández</h1>
     <p>Ingeniería en Tecnologías de la Información e Innovación Digital</p>
   </section>
@@ -39,26 +73,46 @@
   <!-- ETAPA 3: MAPA INTERACTIVO CON JAVASCRIPT -->
   <section>
     <h2>Ubicación Interactiva (Maps JavaScript API)</h2>
+    <p class="instruccion-mapa">💡 <em>Haz clic en cualquier punto del mapa o arrastra el marcador rojo para cambiar la ubicación.</em></p>
     <div id="mapa" class="mapa-contenedor"></div>
   </section>
 
   <script>
     function initMap() {
-      // Coordenadas de la UPVM
-      const ubicacion = { lat: 19.6021, lng: -99.1932 };
+      // Coordenadas exactas de la Universidad Politécnica del Valle de México
+      const ubicacionUPVM = { lat: 19.60418, lng: -99.19539 };
+
       const mapa = new google.maps.Map(document.getElementById("mapa"), {
-        zoom: 15,
-        center: ubicacion,
+        zoom: 16,
+        center: ubicacionUPVM,
       });
-      new google.maps.Marker({
-        position: ubicacion,
+
+      // Marcador arrastrable (draggable: true)
+      const marcador = new google.maps.Marker({
+        position: ubicacionUPVM,
         map: mapa,
-        title: "Universidad Politécnica del Valle de México",
+        draggable: true,
+        title: "Universidad Politécnica del Valle de México (Arrastra o haz clic)",
+        animation: google.maps.Animation.DROP
+      });
+
+      // Ventana de información al hacer clic sobre el marcador
+      const infoWindow = new google.maps.InfoWindow({
+        content: "<strong>UPVM</strong><br>Marcador interactivo activo."
+      });
+
+      marcador.addListener("click", () => {
+        infoWindow.open(mapa, marcador);
+      });
+
+      // Evento: Al hacer clic en cualquier parte del mapa, el marcador se mueve a esa posición
+      mapa.addListener("click", (evento) => {
+        marcador.setPosition(evento.latLng);
       });
     }
   </script>
 
-  <!-- REEMPLAZAREMOS TU_API_KEY_AQUI EN EL SIGUIENTE PASO -->
+  <!-- SCRIPT OFICIAL CON TU CLAVE DE API -->
   <script 
     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDlUO8ImsAqnTI0Yi2e2L6Dx0kF19-jdMY&callback=initMap" 
     async 
